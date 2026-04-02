@@ -1,9 +1,9 @@
 # DE1 Projekt
-## Členové týmu
+### Členové týmu
 #### Jakub Dibelka
-
+návrh a tvorba programu
 #### Libor Brostík
-
+finální dokumentace projektu (README.md) a tvorba programu
 Toto je projekt pro předmět DE1 na téma 5. RGB MOOD LAMP
 Projekt je zaměřen na RGB lampu, kde je možné nastavit pomocí tlačítek míru svítivosti, rychlosti a barvy.
 
