@@ -3,6 +3,8 @@ Toto je projekt pro předmět DE1 na téma 5. RGB MOOD LAMP
 Projekt je zaměřen na RGB lampu, kde je možné nastavit pomocí tlačítek míru svítivosti, rychlosti a barvy.
 
 ## Lab1: Architecture
+### Nastavení GitHubu
+
 ### Blokové schéma
 Návrh blokového schématu pro naší aplikaci
 
