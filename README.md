@@ -23,6 +23,12 @@ Návrh blokového schématu pro naší aplikaci (není finální)
 ![Screenshot of a block desing](img/block_design.png)
 ### Příprava .XDC souboru
 Nastavení pinů desky [Nexys A7-50T](nexys.xdc)
-Pro nastavení parametrů RGB budeme
-
+Pro správné propojení kódu VHDL s fyzickým hardwarem desky Nexys A7-50T využijeme constraints soubor (.xdc). V něm namapujeme tyto porty:
+###Tlačítka
+* **BTNC:** Tlačítko na reset
+* **BTNL:** Tlačítko pro nastavení svítivosti (Brightness)
+* **BTNR:** Tlačítko pro nastavení rychlosti (Speed)
+* **BTNU/BTND:** Výběr hodnoty pro dané nastavení
+###RGB
+* **LED17_R, LED17_G, LED17_B**
 ## Lab2: Unit Design
