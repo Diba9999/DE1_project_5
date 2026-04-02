@@ -10,5 +10,6 @@ Návrh blokového schématu pro naší aplikaci
 
 ### Příprava .XDC souboru
 Nastavení pinů desky [Nexys A7-50T](nexys.xdc)
+Pro nastavení parametrů RGB budeme
 
 ## Lab2: Unit Design
