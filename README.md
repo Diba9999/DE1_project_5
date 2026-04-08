@@ -34,10 +34,29 @@ Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](n
 ### Debounce
 Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlých stavových změn (zákmitů). Abychom předešli tomu, že systém vyhodnotí jeden stisk jako několikanásobné zmáčknutí, využíváme modul Debounce. Ten vzorkuje vstupní signál a na výstup propustí stabilní logickou hodnotu až ve chvíli, kdy se vstupní signál ustálí po určitou dobu.
 
+```vhdl
+Sem vložit kód
+```
 
 ### Color FSM
 Tento modul tvoří "mozek" celé aplikace.
+| Port name | Direction | Type | Description |
+| :--- | :---: | :--- | :--- |
+| `clk` | in | `std_logic` | Main clock |
+| `en` | in | `std_logic` | Clock enable |
+| `rst` | in | `std_logic` | High-active synchronous reset |
+| `up` | in | `std_logic` | Increment command from debounced button |
+| `down` | in | `std_logic` | Decrement command from debounced button |
+| `mod_brig` | in | `std_logic` | Mode selector for brightness adjustment |
+| `mod_speed` | in | `std_logic` | Mode selector for speed adjustment |
+| `color_input` | in | `std_logic_vector (3 downto 0)` | Direct color selection from hardware switches SW(3:0) |
+| `bright` | out | `std_logic_vector (3 downto 0)` | Calculated brightness level for the PWM driver |
+| `spd` | out | `std_logic_vector (3 downto 0)` | Calculated speed value for the PWM driver |
+| `clr` | out | `std_logic_vector (3 downto 0)` | Current color mode/value for the PWM driver |
 
+```vhdl
+Sem vložit kód
+```
 
 ### RGB PWM Driver
 Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přijímá číselné hodnoty a převádí je na tři nezávislé signály pulzně šířkové modulace (PWM). Pro PWM modul zadefinujeme tyto I/O porty
@@ -46,9 +65,9 @@ Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přij
 | `clk` | in | `std_logic` | Main clock |
 | `en` | in | `std_logic` | Clock enable |
 | `rst` | in | `std_logic` | High-active synchronous reset |
-| `brightness` | in | `std_logic_vector (6 downto 0)` | Input value determining the overall brightness level |
-| `speed` | in | `std_logic_vector (6 downto 0)` | Input value determining the speed of color transitions or pulsing |
-| `color` | in | `std_logic_vector (3 downto 0)` | Input value selecting the specific color |
+| `bright` | in | `std_logic_vector (3 downto 0)` | Input value determining the overall brightness level |
+| `spd` | in | `std_logic_vector (3 downto 0)` | Input value determining the speed of color transitions or pulsing |
+| `clr` | in | `std_logic_vector (3 downto 0)` | Input value selecting the specific color |
 | `LED_R` | out | `std_logic` | PWM output signal for the Red LED channel |
 | `LED_G` | out | `std_logic` | PWM output signal for the Green LED channel |
 | `LED_B` | out | `std_logic` | PWM output signal for the Blue LED channel |
