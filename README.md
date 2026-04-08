@@ -31,3 +31,13 @@ Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](n
 #### RGB
 * **LED17_R, LED17_G, LED17_B:** Pro ovládání jednotlivých barev
 ## Lab2: Unit Design
+### Debounce
+Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlých stavových změn (zákmitů). Abychom předešli tomu, že systém vyhodnotí jeden stisk jako několikanásobné zmáčknutí, využíváme modul Debounce. Ten vzorkuje vstupní signál a na výstup propustí stabilní logickou hodnotu až ve chvíli, kdy se vstupní signál ustálí po určitou dobu.
+
+
+### Color FSM
+Tento modul tvoří "mozek" celé aplikace.
+
+
+### RGB PWM Driver
+Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přijímá číselné hodnoty a převádí je na tři nezávislé signály pulzně šířkové modulace (PWM).
