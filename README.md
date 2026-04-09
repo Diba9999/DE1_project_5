@@ -174,7 +174,9 @@ begin
 
 end Behavioral;
 ```
+#### Debounce Testbench
 ![Screenshot of a debounce testbench](img/debounce_tb.png)
+Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
 
 ### Color FSM
 Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost a rychlost RGB LED.
@@ -330,6 +332,7 @@ end Behavioral;
 ```
 
 ![Screenshot of a color FSM testbench](img/color_fsm_tb.png)
+Kód pro color fsm testbench [zde](testbenches/color_fsm_tb.vhd)
 > [!NOTE]
 > Testbench není finální (může se ještě změnit).
 
@@ -420,3 +423,4 @@ end Behavioral;
 ```
 
 ![Screenshot of a PWM Driver testbench](img/pwm_driver_tb.png)
+Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
