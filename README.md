@@ -18,9 +18,11 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 
 ## Lab1: Architecture
 ### Blokové schéma
-Návrh blokového schématu pro naší aplikaci (není finální)
+Návrh blokového schématu pro naší aplikaci
 
 ![Screenshot of a block desing](img/Design_schematic.png)
+> [!NOTE]
+> Návrh schématu není finální.
 ### Příprava .XDC souboru
 Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](nexys.xdc) využijeme constraints soubor (.xdc). V něm namapujeme tyto porty:
 #### Tlačítka
