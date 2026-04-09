@@ -326,6 +326,8 @@ end Behavioral;
 ```
 
 ![Screenshot of a color FSM testbench](img/color_fsm_tb.png)
+> [!NOTE]
+> Testbench není finální (může se ještě změnit).
 
 ### RGB PWM Driver
 Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přijímá číselné hodnoty a převádí je na tři nezávislé signály pulzně šířkové modulace (PWM). Pro PWM modul zadefinujeme tyto I/O porty
