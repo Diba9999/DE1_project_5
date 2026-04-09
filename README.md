@@ -330,7 +330,7 @@ begin
 
 end Behavioral;
 ```
-
+#### Color FSM Testbench
 ![Screenshot of a color FSM testbench](img/color_fsm_tb.png)
 Kód pro color fsm testbench [zde](testbenches/color_fsm_tb.vhd)
 > [!NOTE]
@@ -421,6 +421,8 @@ process(clk)
     end process;  
 end Behavioral;
 ```
-
+#### PWM Driver Testbench
 ![Screenshot of a PWM Driver testbench](img/pwm_driver_tb.png)
 Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
+
+## Lab3: Integration
