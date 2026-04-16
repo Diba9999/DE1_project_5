@@ -7,9 +7,9 @@
   
 ### Obsah
 * [Cíl projektu](#cíl-projektu)
-* [Lab1: Architecture](#lab1:-architecture)
-* [Lab2: Unit Design](#lab2:-unit-design)
-* [Lab3: Integration](#lab3:-integration)
+* [Lab1: Architecture](#lab1-architecture)
+* [Lab2: Unit Design](#lab2-unit-design)
+* [Lab3: Integration](#lab3-integration)
 ## Cíl projektu
 Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce
 ### Základní funkce
