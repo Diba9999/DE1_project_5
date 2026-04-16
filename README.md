@@ -23,8 +23,7 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 Návrh blokového schématu pro naší aplikaci
 
 ![Screenshot of a block desing](img/Top_level_design_v3.drawio.png)
-> [!NOTE]
-> Návrh schématu není finální.
+
 ### Příprava .XDC souboru
 Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](nexys.xdc) využijeme constraints soubor (.xdc). V něm namapujeme tyto porty:
 #### Tlačítka
@@ -430,3 +429,10 @@ end Behavioral;
 Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
 
 ## Lab3: Integration
+### Top-Level
+Je to hlavní entita, která je spojnice mezi programem a hardwarem. V této entitě se inicializují vstupy a výstupy všech modulů.
+
+#### Top-Level VHDL
+```vhdl
+Top-Level kód zde
+```
