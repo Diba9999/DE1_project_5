@@ -11,11 +11,12 @@
 * [Lab2: Unit Design](#lab2-unit-design)
 * [Lab3: Integration](#lab3-integration)
 ## Cíl projektu
-Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce
+Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce. Aktualní nastavení a jeho hodnoty bude možné sledovat na 7-segmentovém displeji.
 ### Základní funkce
 * **Výběr barvy:** Možnost přepínat mezi předdefinovanými barvami
 * **Úprava svítivosti:** Zvyšení nebo snížení intenzity světla pomocí PWM
 * **Úprava rychlosti:** Snižování nebo zvyšování rychlosti pulzování nebo prolínání barev
+* **Zobrazení hodnot pomoci 7-segmentového displeje:** Podle nastavení můžeme na displeji sledovat aktualní hodnotu svítivosti/rychlosti
 * **Reset:** Návrat parametrů do původního stavu
 
 ## Lab1: Architecture
@@ -444,10 +445,18 @@ end Behavioral;
 Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
 
 ## Lab3: Integration
+### 7-segment display
+Pro lepší přehled nad aktuálním nastavením byl dodatečně přidán modul pro 7-segmentový displej. Díky němu můžeme sledovat aktualní hodnoty dle vybraného nastavení
+
+
 ### Top-Level
 Je to hlavní entita, která je spojnice mezi programem a hardwarem. V této entitě se inicializují vstupy a výstupy všech modulů.
 
 #### Top-Level VHDL
+<details>
+<summary>Kód zde</summary>
+  
 ```vhdl
 Top-Level kód zde
 ```
+</details>
