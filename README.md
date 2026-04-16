@@ -53,6 +53,7 @@ Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlýc
 Pomocí debounce ošetříme 4 tlačítka BTNU, BTND, BTNL a BTNR proti zákmitům.
 #### Debounce VHDL
 <details>
+<summary>Kód zde</summary>
 
 ```vhdl
 library IEEE;
@@ -180,6 +181,7 @@ begin
 end Behavioral;
 ```
 </details>
+
 #### Debounce Testbench
 ![Screenshot of a debounce testbench](img/debounce_tb.png)
 Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
