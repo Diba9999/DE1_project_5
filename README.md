@@ -7,12 +7,6 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
   * návrh a tvorba programu
   #### Libor Brostík
   * finální dokumentace projektu (README.md) a tvorba programu
-  
-### Obsah
-* [Cíl projektu](#cíl-projektu)
-* [Lab1: Architecture](#lab1-architecture)
-* [Lab2: Unit Design](#lab2-unit-design)
-* [Lab3: Integration](#lab3-integration)
 
 ### Základní funkce
 * **Výběr barvy:** Možnost přepínat mezi předdefinovanými barvami
@@ -20,6 +14,13 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 * **Úprava rychlosti:** Snižování nebo zvyšování rychlosti pulzování nebo prolínání barev
 * **Zobrazení hodnot pomoci 7-segmentového displeje:** Podle nastavení můžeme na displeji sledovat aktualní hodnotu svítivosti/rychlosti
 * **Reset:** Návrat parametrů do původního stavu
+
+### Obsah
+* [Cíl projektu](#cíl-projektu)
+* [Lab1: Architecture](#lab1-architecture)
+* [Lab2: Unit Design](#lab2-unit-design)
+* [Lab3: Integration](#lab3-integration)
+
 
 ## Lab1: Architecture
 ### Blokové schéma
