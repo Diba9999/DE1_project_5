@@ -192,6 +192,7 @@ end Behavioral;
 <p>
   <img src="img/debounce_tbv2.png" width="800"><br>
 </p>
+
 Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
 
 ### Color Control
@@ -352,7 +353,10 @@ end Behavioral;
 </details>
 
 #### Color Control Testbench
-![Screenshot of a color Control testbench](img/color_fsm_tb.png)
+<p>
+  <img src="img/color_fsm_tb.png" width="800"><br>
+</p>
+
 Kód pro color Control testbench [zde](testbenches/color_fsm_tb.vhd)
 > [!NOTE]
 > Testbench není finální (může se ještě změnit).
@@ -448,7 +452,10 @@ end Behavioral;
 </details>
 
 #### PWM Driver Testbench
-![Screenshot of a PWM Driver testbench](img/pwm_driver_tb.png)
+<p>
+  <img src="img/pwm_driver_tbv2.png" width="800"><br>
+</p>
+
 Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
 
 ## Lab3: Integration
