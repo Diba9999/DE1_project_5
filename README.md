@@ -345,8 +345,8 @@ end Behavioral;
 </details>
 
 #### Color Control Testbench
-![Screenshot of a color Control testbench](img/color_Control_tb.png)
-Kód pro color Control testbench [zde](testbenches/color_Control_tb.vhd)
+![Screenshot of a color Control testbench](img/color_FSM_tb.png)
+Kód pro color Control testbench [zde](testbenches/color_FSM_tb.vhd)
 > [!NOTE]
 > Testbench není finální (může se ještě změnit).
 
