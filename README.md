@@ -1,23 +1,25 @@
 # RGB MOOD LAMP VYTVOŘENÉ NA DESCE NEXYS A7-50T
+## Cíl projektu
+Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce. Aktualní nastavení a jeho hodnoty bude možné sledovat na 7-segmentovém displeji.
+
 ### Členové týmu
   #### Jakub Dibelka
   * návrh a tvorba programu
   #### Libor Brostík
   * finální dokumentace projektu (README.md) a tvorba programu
-  
-### Obsah
-* [Cíl projektu](#cíl-projektu)
-* [Lab1: Architecture](#lab1-architecture)
-* [Lab2: Unit Design](#lab2-unit-design)
-* [Lab3: Integration](#lab3-integration)
-## Cíl projektu
-Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce. Aktualní nastavení a jeho hodnoty bude možné sledovat na 7-segmentovém displeji.
+
 ### Základní funkce
 * **Výběr barvy:** Možnost přepínat mezi předdefinovanými barvami
 * **Úprava svítivosti:** Zvyšení nebo snížení intenzity světla pomocí PWM
 * **Úprava rychlosti:** Snižování nebo zvyšování rychlosti pulzování nebo prolínání barev
 * **Zobrazení hodnot pomoci 7-segmentového displeje:** Podle nastavení můžeme na displeji sledovat aktualní hodnotu svítivosti/rychlosti
 * **Reset:** Návrat parametrů do původního stavu
+
+### Obsah
+* [Cíl projektu](#cíl-projektu)
+* [Lab1: Architecture](#lab1-architecture)
+* [Lab2: Unit Design](#lab2-unit-design)
+* [Lab3: Integration](#lab3-integration)
 
 ## Lab1: Architecture
 ### Blokové schéma
@@ -34,6 +36,9 @@ Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](n
 * **BTNU/BTND:** Zvyšování / snižování hodnoty pro dané nastavení
 #### RGB
 * **LED17_R, LED17_G, LED17_B:** Pro ovládání jednotlivých barev
+#### RGB
+* **SEG:** Zobrazení hodnot pro aktuální nastavení
+
 ## Lab2: Unit Design
 ### Debounce
 Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlých stavových změn (zákmitů). Abychom předešli tomu, že systém vyhodnotí jeden stisk jako několikanásobné zmáčknutí, využíváme modul Debounce. Ten vzorkuje vstupní signál a na výstup propustí stabilní logickou hodnotu až ve chvíli, kdy se vstupní signál ustálí po určitou dobu.
@@ -184,7 +189,11 @@ end Behavioral;
 </details>
 
 #### Debounce Testbench
-![Screenshot of a debounce testbench](img/debounce_tb.png)
+<p>
+  <img src="img/debounce_tbv2.png" width="800"><br>
+  <em><a href="testbenches/debounce_tb.vhd">VHDL Testbench</a></em>
+</p>
+
 Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
 
 ### Color Control
@@ -345,8 +354,11 @@ end Behavioral;
 </details>
 
 #### Color Control Testbench
-![Screenshot of a color Control testbench](img/color_fsm_tb.png)
-Kód pro color Control testbench [zde](testbenches/color_fsm_tb.vhd)
+<p>
+  <img src="img/color_fsm_tb.png" width="800"><br>
+  <em><a href="testbenches/color_fsm_tb.vhd">VHDL Testbench</a></em>
+</p>
+
 > [!NOTE]
 > Testbench není finální (může se ještě změnit).
 
@@ -441,8 +453,10 @@ end Behavioral;
 </details>
 
 #### PWM Driver Testbench
-![Screenshot of a PWM Driver testbench](img/pwm_driver_tb.png)
-Kód pro pwm driver testbench [zde](testbenches/pwm_driver_tb.vhd)
+<p>
+  <img src="img/pwm_driver_tbv2.png" width="800"><br>
+  <em><a href="testbenches/pwm_driver_tb.vhd">VHDL Testbench</a></em>
+</p>
 
 ## Lab3: Integration
 ### 7-segment display
@@ -754,3 +768,6 @@ begin
 end Behavioral;
 ```
 </details>
+
+## Lab4: Tuning
+Tunění kódu
