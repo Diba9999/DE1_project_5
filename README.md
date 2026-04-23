@@ -191,6 +191,7 @@ end Behavioral;
 #### Debounce Testbench
 <p>
   <img src="img/debounce_tbv2.png" width="800"><br>
+  <em><a href="testbenches/debounce_tb.vhd">VHDL Testbench</a></em>
 </p>
 
 Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
@@ -352,8 +353,8 @@ end Behavioral;
 ```
 </details>
 
-#### Color Control Testbench
-<p>
+<h2 align="center">Color Control Testbench</h2>
+<p align="center">
   <img src="img/color_fsm_tb.png" width="800"><br>
 </p>
 
