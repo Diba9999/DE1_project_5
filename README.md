@@ -21,7 +21,6 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 * [Lab2: Unit Design](#lab2-unit-design)
 * [Lab3: Integration](#lab3-integration)
 
-
 ## Lab1: Architecture
 ### Blokové schéma
 Návrh blokového schématu pro naší aplikaci
@@ -37,6 +36,9 @@ Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](n
 * **BTNU/BTND:** Zvyšování / snižování hodnoty pro dané nastavení
 #### RGB
 * **LED17_R, LED17_G, LED17_B:** Pro ovládání jednotlivých barev
+#### RGB
+* **SEG:** Zobrazení hodnot pro aktuální nastavení
+
 ## Lab2: Unit Design
 ### Debounce
 Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlých stavových změn (zákmitů). Abychom předešli tomu, že systém vyhodnotí jeden stisk jako několikanásobné zmáčknutí, využíváme modul Debounce. Ten vzorkuje vstupní signál a na výstup propustí stabilní logickou hodnotu až ve chvíli, kdy se vstupní signál ustálí po určitou dobu.
