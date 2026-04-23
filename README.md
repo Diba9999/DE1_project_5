@@ -1,4 +1,7 @@
 # RGB MOOD LAMP VYTVOŘENÉ NA DESCE NEXYS A7-50T
+## Cíl projektu
+Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce. Aktualní nastavení a jeho hodnoty bude možné sledovat na 7-segmentovém displeji.
+
 ### Členové týmu
   #### Jakub Dibelka
   * návrh a tvorba programu
@@ -10,8 +13,7 @@
 * [Lab1: Architecture](#lab1-architecture)
 * [Lab2: Unit Design](#lab2-unit-design)
 * [Lab3: Integration](#lab3-integration)
-## Cíl projektu
-Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys A7-50T. Lampa umožňuje uživateli měnit parametry lampy pomocí tlačítek na desce. Aktualní nastavení a jeho hodnoty bude možné sledovat na 7-segmentovém displeji.
+
 ### Základní funkce
 * **Výběr barvy:** Možnost přepínat mezi předdefinovanými barvami
 * **Úprava svítivosti:** Zvyšení nebo snížení intenzity světla pomocí PWM
