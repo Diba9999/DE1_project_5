@@ -757,3 +757,6 @@ begin
 end Behavioral;
 ```
 </details>
+
+## Lab4: Tuning
+Tunění kódu
