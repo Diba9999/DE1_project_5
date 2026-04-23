@@ -189,7 +189,7 @@ end Behavioral;
 </details>
 
 #### Debounce Testbench
-<p align="center">
+<p>
   <img src="img/debounce_tbv2.png" width="800"><br>
 </p>
 Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
