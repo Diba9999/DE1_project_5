@@ -781,9 +781,9 @@ Zaměřili na ladění kódu, identifikaci a následnou opravu chyb programů.
 ## Lab5: Completion
 
 ## Zdrojové kódy
-• [Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
-• [Color Control](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
-• [PWM Driver](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
+*  [•Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
+* [Color Control](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
+* [PWM Driver](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
 • [Debounce](Program/sources_1/imports/Vivado/debounce_4/debounce_4.srcs/sources_1/imports/new/debounce.vhd)
 • [Clock Enable](Program/sources_1/imports/Vivado/debounce_4/debounce_4.srcs/sources_1/imports/new/clk_en.vhd)
 • [Display Driver](Program/sources_1/imports/new/display_driver.vhd)
