@@ -61,7 +61,7 @@ Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlýc
 | `btn4_state` | out | `std_logic` | State of button 4 |
 
 Pomocí debounce ošetříme 4 tlačítka BTNU, BTND, BTNL a BTNR proti zákmitům.
-### [Debounce VHDL](Program/sources_1/imports/Vivado/debounce_4/debounce_4.srcs/sources_1/imports/new/debounce.vhd)
+### &nbsp;&nbsp;&nbsp;  [Debounce VHDL](Program/sources_1/imports/Vivado/debounce_4/debounce_4.srcs/sources_1/imports/new/debounce.vhd)
 
 #### Debounce Testbench
 <p>
@@ -85,7 +85,7 @@ Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost 
 | `green` | out | `std_logic_vector (8 downto 0)` | Calculated Green value for the PWM driver |
 | `blue` | out | `std_logic_vector (8 downto 0)` | Calculated Blue value for the PWM driver |
 
-### [Color Control VHDL](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
+### &nbsp;&nbsp;&nbsp;  [Color Control VHDL](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
 
 #### Color Control Testbench
 <p>
@@ -110,8 +110,7 @@ Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přij
 | `led_g` | out | `std_logic` | PWM output signal for the Green LED channel |
 | `led_b` | out | `std_logic` | PWM output signal for the Blue LED channel |
 
-
-### [PWM Driver VHDL](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
+### &nbsp;&nbsp;&nbsp;  [PWM Driver VHDL](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
 
 #### PWM Driver Testbench
 <p>
@@ -141,9 +140,9 @@ Dodělávání programů a odstraňování zbývajících nedostatků a kompleta
  &nbsp;&nbsp;&nbsp; [Poster A3](other/poster.pdf)
   
 ### Video
- &nbsp;&nbsp;&nbsp; Video ukazující funčnost proggramu na desce Nexys A7 50T
+ &nbsp;&nbsp;&nbsp; Video ukazující funčnost programu na desce Nexys A7 50T
 
- &nbsp;&nbsp;&nbsp; [Video](Other/video.mp4)
+ &nbsp;&nbsp;&nbsp; [Video](other/video.mp4)
 
 ## Zdrojové kódy VHDL
 * [Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
