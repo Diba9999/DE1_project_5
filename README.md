@@ -130,9 +130,20 @@ Je to hlavní entita, která je spojnice mezi programem a hardwarem. V této ent
 ### [Top-Level VHDL](Program/sources_1/RGB_Mood_Lamp_top.vhd)
 
 ## Lab4: Tuning
-Zaměřili na ladění kódu, identifikaci a následnou opravu chyb programů.
+Zaměřili jsme se na ladění kódu, nalezení a následnou opravu chyb a nedostatků programů.
 
 ## Lab5: Completion
+Dodělávání programů a odstraňování zbývajících nedostatků a kompletace dokumentace (README, poster a video)
+
+### Poster A3
+  Poster popisující základní princip programu a funkčnost programu.
+  
+  [Poster A3](Other/poster.png)
+  
+### Video
+  Video ukazující funčnost proggramu na desce Nexys A7 50T
+
+  [Video](Other/video.mp4)
 
 ## Zdrojové kódy VHDL
 * [Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
@@ -143,6 +154,3 @@ Zaměřili na ladění kódu, identifikaci a následnou opravu chyb programů.
 * [Display Driver](Program/sources_1/imports/new/display_driver.vhd)
 * [Counter](Program/sources_1/imports/new/counter.vhd)
 * [Bin 2 Seg](Program/sources_1/imports/new/bin2seg.vhd)
-
-
-
