@@ -23,7 +23,7 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 * [Lab3: Integration](#lab3-integration)
 * [Lab4: Tuning](#lab4-tuning)
 * [Lab5: Completion](#lab5-completion)
-* [Zdrojové kódy](#zdrojové-kódy)
+* [Zdrojové kódy VHDL](#zdrojové-kódy)
   
 ## Lab1: Architecture
 ### Blokové schéma
@@ -61,144 +61,13 @@ Mechanická tlačítka při stlačení nebo uvolnění generují sérii rychlýc
 | `btn4_state` | out | `std_logic` | State of button 4 |
 
 Pomocí debounce ošetříme 4 tlačítka BTNU, BTND, BTNL a BTNR proti zákmitům.
-#### Debounce VHDL
-<details>
-<summary>Kód zde</summary>
-
-```vhdl
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-
-
-entity debounce is
-    Port ( clk        : in STD_LOGIC;
-           rst        : in STD_LOGIC;
-           
-           btn1       : in STD_LOGIC;
-           btn2       : in STD_LOGIC;
-           btn3       : in STD_LOGIC;
-           btn4       : in STD_LOGIC;
-           
-           btn1_state : out STD_LOGIC;
-           btn2_state : out STD_LOGIC;
-           btn3_state : out STD_LOGIC;
-           btn4_state : out STD_LOGIC
-           );
-end debounce;
-
-architecture Behavioral of debounce is
-    ----------------------------------------------------------------
-    -- Constants
-    ----------------------------------------------------------------
-    constant C_SHIFT_LEN : positive := 4;       -- Debounce history
-    constant C_MAX       : positive := 200_000; -- Sampling period
-                                                -- 2 for simulation
-                                                -- 200_000 (2 ms) for implementation !!!
-
-    ----------------------------------------------------------------
-    -- Internal signals
-    ----------------------------------------------------------------
-    signal ce_sample  : std_logic;
-    signal sync0      : std_logic_vector(3 downto 0);
-    signal sync1      : std_logic_vector(3 downto 0);
-    signal debounced  : std_logic_vector(3 downto 0);
-    signal delayed    : std_logic_vector(3 downto 0);
-    signal btn_in_vec : std_logic_vector(3 downto 0);  -- Seskupení vstupu do vektoru
-    
-    -- registr je pole/matice od 3 do 0 |  naplněn std_logic_vector dané velikosti
-    type shift_reg_array is array (3 downto 0) of std_logic_vector(C_SHIFT_LEN-1 downto 0);
-    --   nazev signálu | tvorba objektu signálu | := počáteční hodnota | nastav řadky(nastav v řádku '0')   
-    signal shift_reg : shift_reg_array:= (others => (others => '0'));
-
-    ----------------------------------------------------------------
-    -- Component declaration for clock enable
-    ----------------------------------------------------------------
-    component clk_en is
-        generic ( G_MAX : positive );
-        port (
-            clk : in  std_logic;
-            rst : in  std_logic;
-            ce  : out std_logic
-        );
-    end component clk_en;
-      
-    
-begin
-    btn_in_vec <= btn4 & btn3 & btn2 & btn1;
-    
-    ----------------------------------------------------------------
-    -- Clock enable instance
-    ----------------------------------------------------------------
-    clock_0 : clk_en
-        generic map ( G_MAX => C_MAX )
-        port map (
-            clk => clk,
-            rst => rst,
-            ce  => ce_sample
-        );
-
-    ----------------------------------------------------------------
-    -- Synchronizer + debounce
-    ----------------------------------------------------------------
-    p_debounce : process(clk)
-    begin
-        if rising_edge(clk) then
-            if rst = '1' then
-                sync0     <= (others => '0');
-                sync1     <= (others => '0');
-                shift_reg <= (others => (others => '0')); -- Restart celého pole
-                debounced <= (others => '0');
-                delayed   <= (others => '0');
-
-            else
-                -- Input synchronizer
-                sync1 <= sync0;
-                sync0 <= btn_in_vec;
-                
-                for i in 0 to 3 loop
-                    -- Sample only when enable pulse occurs
-                    if ce_sample = '1' then
-    
-                        -- Shift registru pro každé tlačítko zvlášť
-                        shift_reg(i) <= shift_reg(i)(C_SHIFT_LEN-2 downto 0) & sync1(i);
-    
-                        -- Kontrola jestli jsou všechny bity (i) vstupu '1'
-                        if shift_reg(i) = (shift_reg(i)'range => '1') then
-                            debounced(i) <= '1';
-                        -- Kontrola jestli jsou všechny bity (i) vstupu '1'
-                        elsif shift_reg(i) = (shift_reg(i)'range => '0') then
-                            debounced(i) <= '0';
-                        end if;
-    
-                    end if;
-                end loop;
-
-                -- One clock delayed output
-                delayed <= debounced;
-            end if;
-        end if;
-    end process;
-
-    ----------------------------------------------------------------------
-    -- Outputs - Mapování vnitřního vektoru zpět na individuální  výstupy 
-    ----------------------------------------------------------------------
-    btn1_state <= debounced(0);
-    btn2_state <= debounced(1);
-    btn3_state <= debounced(2);
-    btn4_state <= debounced(3);
-
-end Behavioral;
-```
-</details>
+#### [Debounce VHDL](Program/sources_1/imports/Vivado/debounce_4/debounce_4.srcs/sources_1/imports/new/debounce.vhd)
 
 #### Debounce Testbench
 <p>
   <img src="img/debounce_tbv2.png" width="800"><br>
   <em><a href="testbenches/debounce_tb.vhd">VHDL Testbench</a></em>
 </p>
-
-Kód pro debounce testbench [zde](testbenches/debounce_tb.vhd)
 
 ### Color Control
 Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost a rychlost RGB LED.
@@ -216,146 +85,7 @@ Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost 
 | `green` | out | `std_logic_vector (8 downto 0)` | Calculated Green value for the PWM driver |
 | `blue` | out | `std_logic_vector (8 downto 0)` | Calculated Blue value for the PWM driver |
 
-
-#### Color Control VHDL
-<details>
-<summary>Kód zde</summary>
-
-```vhdl
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-
-entity color_control is
-    Port ( 
-        clk          : in  STD_LOGIC;
-        rst          : in  STD_LOGIC;
-        en           : in  STD_LOGIC;
-        up           : in  STD_LOGIC;
-        down         : in  STD_LOGIC;
-        mode_speed   : in  STD_LOGIC;
-        mode_brig    : in  STD_LOGIC;
-        value        : out STD_LOGIC_VECTOR (7 downto 0);
-        red          : out STD_LOGIC_VECTOR (7 downto 0);
-        green        : out STD_LOGIC_VECTOR (7 downto 0);
-        blue         : out STD_LOGIC_VECTOR (7 downto 0)
-    );
-end color_control;
-
-architecture Behavioral of color_control is
-
-    type btn_state is (SET_BRIGHTNESS, SET_SPEED);
-    signal MODE : btn_state := SET_BRIGHTNESS;
-
-    signal brig_reg  : unsigned(3 downto 0)  := "0101"; -- Jas 5
-    signal speed_reg : unsigned(3 downto 0)  := "0101"; -- Rychlost 5
-
-    -- Edge Detection registry
-    signal up_last, down_last        : STD_LOGIC := '0';  -- Pro UP a DOWN
-    signal m_speed_last, m_brig_last : STD_LOGIC := '0';  -- Pro tlačítka L (brig) a R (speed)
-
-    -- Barvy
-    signal r_cnt : unsigned(7 downto 0) := x"FF"; 
-    signal g_cnt : unsigned(7 downto 0) := x"00";
-    signal b_cnt : unsigned(7 downto 0) := x"00";
-
-    -- Časování (100 MHz)
-    constant TICKS_PER_SEC : unsigned(19 downto 0) := to_unsigned(65000, 20); 
-    signal delay_counter   : unsigned(23 downto 0) := (others => '0');
-
-begin
-
-    p_color_control : process(clk)
-        variable target_delay : unsigned(23 downto 0);
-    begin
-        if rising_edge(clk) then
-            if (rst = '1') then
-                MODE <= SET_BRIGHTNESS;
-                brig_reg <= "0101";
-                speed_reg <= "0101";
-                r_cnt <= x"FF"; g_cnt <= x"00"; b_cnt <= x"00";
-                delay_counter <= (others => '0');
-                up_last <= '0'; down_last <= '0';
-                m_speed_last <= '0'; m_brig_last <= '0';
-                
-            elsif (en = '1') then
-                
-                -- --- OVLÁDÁNÍ ( POMOCÍ DETEKCE HRANY) ---
-                -- Výběr režimů
-                if (mode_speed = '1' and m_speed_last = '0') then MODE <= SET_SPEED; end if;
-                if (mode_brig = '1' and m_brig_last = '0')   then MODE <= SET_BRIGHTNESS; end if;
-
-                -- Příčítání při zmáčknutí UP
-                if (up = '1' and up_last = '0') then
-                    if (MODE = SET_BRIGHTNESS and brig_reg < 10) then brig_reg <= brig_reg + 1;
-                    elsif (MODE = SET_SPEED and speed_reg < 10)  then speed_reg <= speed_reg + 1;
-                    end if;
-                end if;
-
-                -- Odečítání při zmáčknutí DOWN
-                if (down = '1' and down_last = '0') then
-                    if (MODE = SET_BRIGHTNESS and brig_reg > 0) then brig_reg <= brig_reg - 1;
-                    elsif (MODE = SET_SPEED and speed_reg > 0)  then speed_reg <= speed_reg - 1;
-                    end if;
-                end if;
-                
-                -- Uložení poslední hodnoty pro porovnání s novou (detekce hrany)
-                up_last <= up; down_last <= down;
-                m_speed_last <= mode_speed; m_brig_last <= mode_brig;
-
-                -- --- BAREVNÝ EFEKT (OBRÁCENÁ RYCHLOST) ---
-                if (speed_reg > 0) then
-                    --          1 -> (11-1) *TICKS => POMALÉ
-                    --         10 -> (11-10)*TICKS => RYCHLÉ
-                    target_delay := (to_unsigned(11, 4) - speed_reg) * TICKS_PER_SEC;
-                    
-                    if (delay_counter >= target_delay) then
-                        delay_counter <= (others => '0');
-                        if (r_cnt > 0 and b_cnt = 0) then
-                            r_cnt <= r_cnt - 1; g_cnt <= g_cnt + 1;
-                        elsif (g_cnt > 0 and r_cnt = 0) then
-                            g_cnt <= g_cnt - 1; b_cnt <= b_cnt + 1;
-                        elsif (b_cnt > 0 and g_cnt = 0) then
-                            b_cnt <= b_cnt - 1; r_cnt <= r_cnt + 1;
-                        end if;
-                    else
-                        delay_counter <= delay_counter + 1;
-                    end if;
-                else
-                    delay_counter <= (others => '0'); -- Speed 0 = Pauza
-                end if;
-            end if;
-        end if;
-    end process;
-
-    -- Aplikace jasu (pomocí násobení)
-    p_brightness_apply : process(r_cnt, g_cnt, b_cnt, brig_reg)
-        variable r_tmp, g_tmp, b_tmp : unsigned(11 downto 0); 
-    begin
-        -- Dočasné hodnoty velikost 12bit
-        r_tmp := r_cnt * brig_reg;
-        g_tmp := g_cnt * brig_reg;
-        b_tmp := b_cnt * brig_reg;
-        -- Oříznutí pouze 8 horních bitů
-        red   <= std_logic_vector(r_tmp(11 downto 4));
-        green <= std_logic_vector(g_tmp(11 downto 4));
-        blue  <= std_logic_vector(b_tmp(11 downto 4));
-    end process;
-
-    -- Výstup na displej
-    p_display_out : process(MODE, brig_reg, speed_reg)
-        variable val : unsigned(3 downto 0);
-    begin
-        if MODE = SET_BRIGHTNESS then val := brig_reg; else val := speed_reg; end if;
-        
-        if val = 10 then value <= x"10";  -- Při val = 0 zapsání x10, aby se nezobarzilo A 
-        else value <= "0000" & std_logic_vector(val);
-        end if;
-    end process;
-
-end Behavioral;
-```
-</details>
+#### [Color Control VHDL](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
 
 #### Color Control Testbench
 <p>
@@ -381,80 +111,7 @@ Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přij
 | `led_b` | out | `std_logic` | PWM output signal for the Blue LED channel |
 
 
-#### PWM Driver VHDL
-<details>
-<summary>Kód zde</summary>
-
-```vhdl
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use ieee.numeric_std.all; -- Knihovna pro práci s čísly a aritmetikou    
-
-entity pwm_driver is
-    Generic (   
-            pwm_bits : integer := 8  
-    );
-    Port ( 
-            clk    : in  STD_LOGIC;
-            en     : in  STD_LOGIC;
-            rst    : in  STD_LOGIC;
-              
-            red    : in  STD_LOGIC_VECTOR (7 downto 0);
-            green  : in  STD_LOGIC_VECTOR (7 downto 0);
-            blue   : in  STD_LOGIC_VECTOR (7 downto 0);
-            
-            led_r  : out STD_LOGIC;
-            led_g  : out STD_LOGIC;
-            led_b  : out STD_LOGIC);
-end pwm_driver;
-
-architecture Behavioral of pwm_driver is
-    -- Hlavní PWM čítač (typu unsigned pro aritmetiku)
-    signal pwm_cnt : unsigned(pwm_bits - 1 downto 0);
-
-    signal duty_r : unsigned(7 downto 0);
-    signal duty_g : unsigned(7 downto 0);
-    signal duty_b : unsigned(7 downto 0);
-begin
-    duty_r <= unsigned(red);
-    duty_g <= unsigned(green);
-    duty_b <= unsigned(blue);
-    
-process(clk)
-    begin
-        if rising_edge(clk) then
-            if rst = '1' then
-                pwm_cnt <= (others => '0');
-                led_r   <= '0';
-                led_g   <= '0';
-                led_b   <= '0';
-                
-            else
-                pwm_cnt <= pwm_cnt + 1;
-                -- Komparátor Červená
-                if pwm_cnt < duty_r then 
-                    led_r <= '1'; 
-                else 
-                    led_r <= '0'; 
-                end if;
-                -- Komparátor Zelená
-                if pwm_cnt < duty_g then 
-                    led_g <= '1'; 
-                else 
-                    led_g <= '0'; 
-                end if;
-                -- Komparátor Modrá
-                if pwm_cnt < duty_b then 
-                    led_b <= '1'; 
-                else 
-                    led_b <= '0'; 
-                end if;
-            end if;
-        end if;
-    end process;  
-end Behavioral;
-```
-</details>
+#### [PWM Driver VHDL](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
 
 #### PWM Driver Testbench
 <p>
@@ -477,7 +134,7 @@ Zaměřili na ladění kódu, identifikaci a následnou opravu chyb programů.
 
 ## Lab5: Completion
 
-## Zdrojové kódy
+## Zdrojové kódy VHDL
 * [Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
 * [Color Control](Program/sources_1/imports/Vivado/color_control/color_control.srcs/sources_1/new/color_control.vhd)
 * [PWM Driver](Program/sources_1/imports/Vivado/pwm_driver/pwm_driver.srcs/sources_1/new/pwm_driver.vhd)
