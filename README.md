@@ -29,7 +29,7 @@ Cílem projektu je návrh a implementace ovladače pro RGB lampu na desce Nexys 
 ### Blokové schéma
 Návrh blokového schématu pro naší aplikaci
 
-![Screenshot of a block desing](img/Design_v4.drawio.png)
+![Screenshot of a block desing](img/Design_v5.drawio.png)
 
 ### Příprava .XDC souboru
 Pro správné propojení kódu VHDL s fyzickým hardwarem desky [Nexys A7-50T](nexys.xdc) využijeme constraints soubor (.xdc). V něm namapujeme tyto porty:
@@ -85,7 +85,7 @@ Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost 
 | `down` | in | `std_logic` | Decrement command from debounced button |
 | `mode_brig` | in | `std_logic` | Mode selector for brightness adjustment |
 | `mode_speed` | in | `std_logic` | Mode selector for speed adjustment |
-| `value` | out | `std_logic_vector (6 downto 0)` | Value of speed/brig. for 7-segment driver|
+| `value` | out | `std_logic_vector (15 downto 0)` | Value of speed/brig. for 7-segment driver|
 | `red` | out | `std_logic_vector (8 downto 0)` | Calculated Red value for the PWM driver |
 | `green` | out | `std_logic_vector (8 downto 0)` | Calculated Green value for the PWM driver |
 | `blue` | out | `std_logic_vector (8 downto 0)` | Calculated Blue value for the PWM driver |
