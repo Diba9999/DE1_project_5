@@ -92,7 +92,7 @@ Tento modul tvoří "mozek" celé aplikace. Umožňuje měnit barvu, svítivost 
 
 #### Color Control Testbench
 <p>
-  <img src="img/color_fsm_tb.png" width="800"><br>
+  <img src="img/color_control_tb.png" width="800"><br>
   <em><a href="testbenches/color_fsm_tb.vhd">VHDL Testbench</a></em>
 </p>
 
