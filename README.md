@@ -126,12 +126,12 @@ Pro ovládání výsledné barvy a svítivosti lampy slouží tento modul. Přij
 ## Lab3: Integration
 ### 7-segment display
 &nbsp;&nbsp;&nbsp; Pro lepší přehled nad aktuálním nastavením byl dodatečně přidán modul pro 7-segmentový displej. Díky němu můžeme sledovat aktualní hodnoty dle vybraného nastavení
-### &nbsp;&nbsp;&nbsp; [7-segment VHDL](Program/sources_1/imports/new/display_driver.vhd)
+#### &nbsp;&nbsp;&nbsp; [7-segment VHDL](Program/sources_1/imports/new/display_driver.vhd)
 
 ### Top-Level
 &nbsp;&nbsp;&nbsp; Je to hlavní entita, která je spojnice mezi programem a hardwarem. V této entitě se inicializují vstupy a výstupy všech modulů.
 
-### &nbsp;&nbsp;&nbsp;  [Top-Level VHDL](Program/sources_1/RGB_Mood_Lamp_top.vhd)
+#### &nbsp;&nbsp;&nbsp;  [Top-Level VHDL](Program/sources_1/RGB_Mood_Lamp_top.vhd)
 
 ## Lab4: Tuning
 Zaměřili jsme se na ladění kódu, nalezení a následnou opravu chyb a nedostatků programů.
@@ -152,6 +152,7 @@ Dodělávání programů a odstraňování zbývajících nedostatků a kompleta
 ## Zdrojové soubory
 ### Soubor projektu
 * [Project RGB Mood Lamp](Program/RGB_Mood_Lamp_top.xpr)
+* [Program RGB Mood Lamp](RGB_Mood_Lamp_top.zip)
 
 ### VHDL programy
 * [Toplevel RGB Mood Lamp](Program/sources_1/RGB_Mood_Lamp_top.vhd)
