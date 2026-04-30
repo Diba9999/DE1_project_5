@@ -2,134 +2,108 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity tb_color_fsm is
--- Testbench nemá žádné porty
-end tb_color_fsm;
+entity color_control_tb is
+-- Testbench nemá porty
+end color_control_tb;
 
-architecture Behavioral of tb_color_fsm is
+architecture sim of color_control_tb is
 
-    -- Deklarace testovaného modulu (DUT - Device Under Test)
-    component color_fsm
-        Port ( clk          : in  STD_LOGIC;
-               rst          : in  STD_LOGIC;
-               en           : in  STD_LOGIC;
-               up           : in  STD_LOGIC;
-               down         : in  STD_LOGIC;
-               mode_speed   : in  STD_LOGIC;
-               mode_brig    : in  STD_LOGIC;
-               color_input  : in  STD_LOGIC_VECTOR (3 downto 0);
-               brig         : out STD_LOGIC_VECTOR (3 downto 0);
-               speed        : out STD_LOGIC_VECTOR (3 downto 0);
-               red          : out STD_LOGIC_VECTOR (7 downto 0);
-               green        : out STD_LOGIC_VECTOR (7 downto 0);
-               blue         : out STD_LOGIC_VECTOR (7 downto 0)
-             );
-    end component;
+    -- Signály pro propojení s komponentou
+    signal clk_tb          : std_logic := '0';
+    signal rst_tb          : std_logic := '0';
+    signal en_tb           : std_logic := '0';
+    signal up_tb           : std_logic := '0';
+    signal down_tb         : std_logic := '0';
+    signal mode_speed_tb   : std_logic := '0';
+    signal mode_brig_tb    : std_logic := '0';
+    signal value_tb        : std_logic_vector(15 downto 10) := (others => '0');
+    signal red_tb, green_tb, blue_tb : std_logic_vector(7 downto 0);
 
-    -- Signály pro propojení s DUT
-    signal clk          : STD_LOGIC := '0';
-    signal rst          : STD_LOGIC := '0';
-    signal en           : STD_LOGIC := '0';
-    signal up           : STD_LOGIC := '0';
-    signal down         : STD_LOGIC := '0';
-    signal mode_speed   : STD_LOGIC := '0';
-    signal mode_brig    : STD_LOGIC := '0';
-    signal color_input  : STD_LOGIC_VECTOR (3 downto 0) := (others => '0');
-    
-    signal brig         : STD_LOGIC_VECTOR (3 downto 0);
-    signal speed        : STD_LOGIC_VECTOR (3 downto 0);
-    signal red          : STD_LOGIC_VECTOR (7 downto 0);
-    signal green        : STD_LOGIC_VECTOR (7 downto 0);
-    signal blue         : STD_LOGIC_VECTOR (7 downto 0);
+    -- Zde musí být plný vektor, pokud má port 16 bitů:
+    signal value_full_tb   : std_logic_vector(15 downto 0);
 
-    -- Definice periody hodin pro 100 MHz
-    constant CLK_PERIOD : time := 10 ns;
+    -- Perioda hodin (100 MHz -> 10 ns)
+    constant CLK_PERIOD : time := 1 ns;
+
+    procedure press_btn(signal btn : out std_logic; signal clk : in std_logic) is
+    begin
+        wait until falling_edge(clk); -- Počkáme na sestupnou hranu
+        btn <= '1';                   
+        wait until falling_edge(clk); 
+        btn <= '0';                   
+        wait for 100 ns;              -- Krátká pauza
+    end procedure;
 
 begin
 
-    -- Instanciace testovaného modulu
-    uut: color_fsm Port map (
-          clk          => clk,
-          rst          => rst,
-          en           => en,
-          up           => up,
-          down         => down,
-          mode_speed   => mode_speed,
-          mode_brig    => mode_brig,
-          color_input  => color_input,
-          brig         => brig,
-          speed        => speed,
-          red          => red,
-          green        => green,
-          blue         => blue
+    uut: entity work.color_control
+        port map (
+            clk         => clk_tb,
+            rst         => rst_tb,
+            en          => en_tb,
+            up          => up_tb,
+            down        => down_tb,
+            mode_speed  => mode_speed_tb,
+            mode_brig   => mode_brig_tb,
+            value       => value_full_tb,
+            red         => red_tb,
+            green       => green_tb,
+            blue        => blue_tb
         );
 
-    -- Generování hodinového signálu (100 MHz)
-    clk_process :process
+    -- Generátor hodin
+    clk_process : process
     begin
-        clk <= '0';
-        wait for CLK_PERIOD/2;
-        clk <= '1';
-        wait for CLK_PERIOD/2;
+        while now <= 5 ms loop 
+            clk_tb <= '0';
+            wait for CLK_PERIOD / 2;
+            clk_tb <= '1';
+            wait for CLK_PERIOD / 2;
+        end loop;
+        wait; -- Zastaví generování hodin a tím i celou simulaci
     end process;
 
-    -- Hlavní simulační proces
+    -- Stimulus proces: Řídí události v čase
     stim_proc: process
-    begin		
-        -- 1. Fáze: Inicializace a Reset
-        rst <= '1';
+    begin
+        -- 1. Reset systému (0 - 150 ns)
+        rst_tb <= '1';
         wait for 50 ns;
-        rst <= '0';
-        wait for 50 ns;
-        
-        -- Povolení funkce (Enable)
-        en <= '1';
-        wait for 50 ns;
-
-        -- 2. Fáze: Testování změny jasu (výchozí stav je SET_BRIGHTNESS, hodnota je 6)
-        -- Nasimulujeme stisk tlačítka UP (přesně na 1 takt)
-        up <= '1'; wait for CLK_PERIOD; up <= '0'; 
-        wait for 100 ns; -- Očekáváme brig = 7
-        
-        up <= '1'; wait for CLK_PERIOD; up <= '0'; 
-        wait for 100 ns; -- Očekáváme brig = 8
-
-        -- Nasimulujeme stisk tlačítka DOWN
-        down <= '1'; wait for CLK_PERIOD; down <= '0'; 
-        wait for 100 ns; -- Očekáváme návrat brig = 7
-
-        -- 3. Fáze: Přepnutí do režimu rychlosti
-        mode_speed <= '1'; wait for CLK_PERIOD; mode_speed <= '0';
+        rst_tb <= '0';
+        en_tb  <= '1';
         wait for 100 ns;
 
-        -- 4. Fáze: Testování pauzy (snížení rychlosti z výchozích 5 na 0)
-        for i in 1 to 5 loop
-            down <= '1'; wait for CLK_PERIOD; down <= '0';
-            wait for 50 ns;
-        end loop;
-        -- Nyní by speed měl být 0 (PAUZA)
+        -- 2. Zvýšení jasu (Čas ~ 0.0 ms)
+        press_btn(mode_brig_tb, clk_tb);
+        press_btn(up_tb, clk_tb);
+        press_btn(up_tb, clk_tb);
         
-        wait for 500 ns; -- Chvíli počkáme, abychom v průbězích viděli, že počítadlo stojí
-        
-        -- 5. Fáze: Znovuspuštění na nejvyšší rychlost (speed = 1 -> 1 sekunda na duhu)
-        up <= '1'; wait for CLK_PERIOD; up <= '0'; 
-        wait for 100 ns;
+        -- Čekáme 1 milisekundu a sledujeme průběh barev
+        wait for 1 ms;
 
-
-        -- 6. Fáze: Očekávání na přechod barvy
-        -- Při rychlosti "1" trvá 1 krok 130 718 taktů (cca 1,3 milisekundy v simulaci)
-        -- Počkáme tedy 1.5 ms, abychom v simulaci bezpečně viděli, že červená klesne na FE a zelená stoupne na 01
-        wait for 1.5 ms;
-        
-        -- Změníme jas, abychom viděli okamžitý dopad na ztlumenou barvu
-        mode_brig <= '1'; wait for CLK_PERIOD; mode_brig <= '0'; wait for 50 ns;
-        down <= '1'; wait for CLK_PERIOD; down <= '0'; -- brig klesne na 6
+        -- 3. Snížení rychlosti (Čas ~ 1.0 ms)
+        press_btn(mode_speed_tb, clk_tb);
+        press_btn(down_tb, clk_tb);
+        press_btn(down_tb, clk_tb);
+        press_btn(down_tb, clk_tb);
         
         wait for 1 ms;
 
-        -- Konec simulace (zastaví proces)
-        report "Simulace dokoncena." severity note;
-        wait;
+        -- 4. Snížení jasu (Čas ~ 2.0 ms)
+        press_btn(mode_brig_tb, clk_tb);
+        for i in 1 to 4 loop
+            press_btn(down_tb, clk_tb);
+        end loop;
+
+        wait for 1 ms;
+
+        -- 5. Zvýšení rychlosti na maximum (Čas ~ 3.0 ms)
+        press_btn(mode_speed_tb, clk_tb);
+        for i in 1 to 6 loop
+            press_btn(up_tb, clk_tb);
+        end loop;
+
+        wait; 
     end process;
 
-end Behavioral;
+end sim;
